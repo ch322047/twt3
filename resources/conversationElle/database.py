@@ -1139,39 +1139,25 @@ def getTitoModules(classID: int, status='active'):
 
 # Returns a list of modules assigned to a classID
 def getClassModules(class_id: int, status='any'):
-    if status == 'active':
+    if status in ('active', 'inactive'):
         query = '''
             SELECT `moduleID`
             FROM `tito_module`
-            WHERE `classID` = %s AND 'status' = %s
+            WHERE `classID` = %s AND `status` = %s
             ORDER BY `sequenceID`;
         '''
         res = db.get(query, (class_id, status))
-        if not res:
-            return []
-        return flatten_list(res)
-    elif status == 'inactive':
-        query = '''
-            SELECT `moduleID`
-            FROM `tito_module`
-            WHERE `classID` = %s AND 'status' = %s
-            ORDER BY `sequenceID`;
-        '''
-        res = db.get(query, (class_id, status))
-        if not res:
-            return []
-        return flatten_list(res)
-    else: # 'any'
-        query = '''
-            SELECT `moduleID`
-            FROM `tito_module`
-            WHERE `classID` = %s
-            ORDER BY `sequenceID`;
-        '''
-        res = db.get(query, (class_id,))
-        if not res:
-            return []
-        return flatten_list(res)
+        return [] if not res else flatten_list(res)
+
+    # 'any'
+    query = '''
+        SELECT `moduleID`
+        FROM `tito_module`
+        WHERE `classID` = %s
+        ORDER BY `sequenceID`;
+    '''
+    res = db.get(query, (class_id,))
+    return [] if not res else flatten_list(res)
 
 
 
