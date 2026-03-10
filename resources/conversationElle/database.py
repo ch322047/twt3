@@ -668,10 +668,12 @@ def isTitoClassOwner(user_id: int, class_id: int):
 def isThisATitoClass(class_id: int):
     query = '''
         SELECT EXISTS(
-            SELECT * FROM `tito_class_status` WHERE classID = %s
+            SELECT *
+            FROM `tito_class_status`
+            WHERE classID = %s
         );
     '''
-    res = db.get(query, (class_id, user_id), fetchOne=True)
+    res = db.get(query, (class_id,), fetchOne=True)
     return False if not res else res[0]
 
 
