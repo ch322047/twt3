@@ -210,10 +210,11 @@ def isUserThisAccessLevel(user_id: int, class_id: int, desired_access: str):
 def isUserAStudentInGroup(user_id: int, class_id: int):
     query = '''
         SELECT EXISTS(
-            SELECT * FROM group_user WHERE userID = %s AND groupID = %s AND accessLevel == 'st';
+            SELECT *
+            FROM group_user
+            WHERE userID = %s AND groupID = %s AND accessLevel = 'st'
         );
     '''
-
     res = db.get(query, (user_id, class_id), fetchOne=True)
     if not res:
         return False
