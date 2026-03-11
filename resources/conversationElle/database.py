@@ -860,7 +860,7 @@ def profGetStudentMessages(student_id=None, class_id=None, module_id=None, date_
             query = '''
                 SELECT `userID`, `chatbotSID`, `keywordsUsed`, `grammarScore`, `source`, `message`, `creationTimestamp`, `isVoiceMessage`, `moduleID`, `classID`
                 FROM `messages`
-                WHERE `classID` = %s AND `moduleID` = %s AND creationDate >= %s AND creationDate <= %s
+                WHERE `classID` = %s AND `moduleID` = %s AND creationTimestamp >= %s AND creationTimestamp <= %s
                 ORDER BY `moduleID`, `userID`, `creationTimestamp`
                 ASC;
             '''
@@ -877,7 +877,7 @@ def profGetStudentMessages(student_id=None, class_id=None, module_id=None, date_
             query = '''
                 SELECT `userID`, `chatbotSID`, `keywordsUsed`, `grammarScore`, `source`, `message`, `creationTimestamp`, `isVoiceMessage`, `moduleID`, `classID`
                 FROM `messages`
-                WHERE `classID` = %s AND `moduleID` = %s AND creationDate >= %s
+                WHERE `classID` = %s AND `moduleID` = %s AND creationTimestamp >= %s
                 ORDER BY `moduleID`, `userID`, `creationTimestamp`
                 ASC;
             '''
@@ -894,7 +894,7 @@ def profGetStudentMessages(student_id=None, class_id=None, module_id=None, date_
             query = '''
                 SELECT `userID`, `chatbotSID`, `keywordsUsed`, `grammarScore`, `source`, `message`, `creationTimestamp`, `isVoiceMessage`, `moduleID`, `classID`
                 FROM `messages`
-                WHERE `classID` = %s AND `moduleID` = %s AND creationDate <= %s
+                WHERE `classID` = %s AND `moduleID` = %s AND creationTimestamp <= %s
                 ORDER BY `moduleID`, `userID`, `creationTimestamp`
                 ASC;
             '''
@@ -927,7 +927,7 @@ def profGetStudentMessages(student_id=None, class_id=None, module_id=None, date_
             query = '''
                 SELECT `userID`, `chatbotSID`, `keywordsUsed`, `grammarScore`, `source`, `message`, `creationTimestamp`, `isVoiceMessage`, `moduleID`, `classID`
                 FROM `messages`
-                WHERE `classID` = %s AND `moduleID` = %s AND `userID` = %s AND creationDate >= %s AND creationDate <= %s
+                WHERE `classID` = %s AND `moduleID` = %s AND `userID` = %s AND creationTimestamp >= %s AND creationTimestamp <= %s
                 ORDER BY `creationTimestamp`
                 ASC;
             '''
@@ -944,7 +944,7 @@ def profGetStudentMessages(student_id=None, class_id=None, module_id=None, date_
             query = '''
                 SELECT `userID`, `chatbotSID`, `keywordsUsed`, `grammarScore`, `source`, `message`, `creationTimestamp`, `isVoiceMessage`, `moduleID`, `classID`
                 FROM `messages`
-                WHERE `classID` = %s AND `moduleID` = %s AND `userID` = %s AND creationDate >= %s
+                WHERE `classID` = %s AND `moduleID` = %s AND `userID` = %s AND creationTimestamp >= %s
                 ORDER BY `creationTimestamp`
                 ASC;
             '''
@@ -961,7 +961,7 @@ def profGetStudentMessages(student_id=None, class_id=None, module_id=None, date_
             query = '''
                 SELECT `userID`, `chatbotSID`, `keywordsUsed`, `grammarScore`, `source`, `message`, `creationTimestamp`, `isVoiceMessage`, `moduleID`, `classID`
                 FROM `messages`
-                WHERE `classID` = %s AND `moduleID` = %s AND `userID` = %s AND creationDate <= %s
+                WHERE `classID` = %s AND `moduleID` = %s AND `userID` = %s AND creationTimestamp <= %s
                 ORDER BY `creationTimestamp`
                 ASC;
             '''
@@ -994,7 +994,7 @@ def profGetStudentMessages(student_id=None, class_id=None, module_id=None, date_
             query = '''
                 SELECT `userID`, `chatbotSID`, `keywordsUsed`, `grammarScore`, `source`, `message`, `creationTimestamp`, `isVoiceMessage`, `moduleID`, `classID`
                 FROM `messages`
-                WHERE `classID` = %s AND `userID` = %s AND creationDate >= %s AND creationDate <= %s
+                WHERE `classID` = %s AND `userID` = %s AND creationTimestamp >= %s AND creationTimestamp <= %s
                 ORDER BY `moduleID`, `creationTimestamp`
                 ASC;
             '''
@@ -1011,7 +1011,7 @@ def profGetStudentMessages(student_id=None, class_id=None, module_id=None, date_
             query = '''
                 SELECT `userID`, `chatbotSID`, `keywordsUsed`, `grammarScore`, `source`, `message`, `creationTimestamp`, `isVoiceMessage`, `moduleID`, `classID`
                 FROM `messages`
-                WHERE `classID` = %s AND `userID` = %s AND creationDate >= %s
+                WHERE `classID` = %s AND `userID` = %s AND creationTimestamp >= %s
                 ORDER BY `moduleID`, `creationTimestamp`
                 ASC;
             '''
@@ -1028,7 +1028,7 @@ def profGetStudentMessages(student_id=None, class_id=None, module_id=None, date_
             query = '''
                 SELECT `userID`, `chatbotSID`, `keywordsUsed`, `grammarScore`, `source`, `message`, `creationTimestamp`, `isVoiceMessage`, `moduleID`, `classID`
                 FROM `messages`
-                WHERE `classID` = %s AND `userID` = %s AND creationDate <= %s
+                WHERE `classID` = %s AND `userID` = %s AND creationTimestamp <= %s
                 ORDER BY `moduleID`, `creationTimestamp`
                 ASC;
             '''
@@ -1059,7 +1059,7 @@ def profGetStudentMessages(student_id=None, class_id=None, module_id=None, date_
             query = '''
                 SELECT `userID`, `chatbotSID`, `keywordsUsed`, `grammarScore`, `source`, `message`, `creationTimestamp`, `isVoiceMessage`, `moduleID`, `classID`
                 FROM `messages`
-                WHERE `classID` = %s AND creationDate >= %s AND creationDate <= %s
+                WHERE `classID` = %s AND creationTimestamp >= %s AND creationTimestamp <= %s
                 ORDER BY `moduleID`, `userID`, `creationTimestamp`
                 ASC;
             '''
@@ -1076,7 +1076,7 @@ def profGetStudentMessages(student_id=None, class_id=None, module_id=None, date_
             query = '''
                 SELECT `userID`, `chatbotSID`, `keywordsUsed`, `grammarScore`, `source`, `message`, `creationTimestamp`, `isVoiceMessage`, `moduleID`, `classID`
                 FROM `messages`
-                WHERE `classID` = %s AND creationDate >= %s
+                WHERE `classID` = %s AND creationTimestamp >= %s
                 ORDER BY `moduleID`, `userID`, `creationTimestamp`
                 ASC;
             '''
@@ -1093,7 +1093,7 @@ def profGetStudentMessages(student_id=None, class_id=None, module_id=None, date_
             query = '''
                 SELECT `userID`, `chatbotSID`, `keywordsUsed`, `grammarScore`, `source`, `message`, `creationTimestamp`, `isVoiceMessage`, `moduleID`, `classID`
                 FROM `messages`
-                WHERE `classID` = %s AND creationDate <= %s
+                WHERE `classID` = %s AND creationTimestamp <= %s
                 ORDER BY `moduleID`, `userID`, `creationTimestamp`
                 ASC;
             '''
