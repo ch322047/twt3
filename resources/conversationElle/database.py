@@ -210,10 +210,11 @@ def isUserThisAccessLevel(user_id: int, class_id: int, desired_access: str):
 def isUserAStudentInGroup(user_id: int, class_id: int):
     query = '''
         SELECT EXISTS(
-            SELECT * FROM group_user WHERE userID = %s AND groupID = %s AND accessLevel == 'st';
+            SELECT *
+            FROM group_user
+            WHERE userID = %s AND groupID = %s AND accessLevel = 'st'
         );
     '''
-
     res = db.get(query, (user_id, class_id), fetchOne=True)
     if not res:
         return False
@@ -323,11 +324,10 @@ def updateWordsUsed(term_count_dict: dict, user_id: int, module_id: int):
 
 def updateMessageKeytermCount(count: int, messageID: int, chatbotSID: int):
     query = '''
-        UPDATE `messages` 
-        SET `keyWordsUsed` = `keyWordsUsed` + %s
+        UPDATE `messages`
+        SET `keywordsUsed` = `keywordsUsed` + %s
         WHERE `messageID` = %s;
     '''
-
     db.post(query, (count, messageID))
 
 # TODO: Improve this? return # words mastered and totalwords in that module
@@ -667,10 +667,12 @@ def isTitoClassOwner(user_id: int, class_id: int):
 def isThisATitoClass(class_id: int):
     query = '''
         SELECT EXISTS(
-            SELECT * FROM `tito_class_status` WHERE classID = %s
+            SELECT *
+            FROM `tito_class_status`
+            WHERE classID = %s
         );
     '''
-    res = db.get(query, (class_id, user_id), fetchOne=True)
+    res = db.get(query, (class_id,), fetchOne=True)
     return False if not res else res[0]
 
 
@@ -858,7 +860,7 @@ def profGetStudentMessages(student_id=None, class_id=None, module_id=None, date_
             query = '''
                 SELECT `userID`, `chatbotSID`, `keywordsUsed`, `grammarScore`, `source`, `message`, `creationTimestamp`, `isVoiceMessage`, `moduleID`, `classID`
                 FROM `messages`
-                WHERE `classID` = %s AND `moduleID` = %s AND creationDate >= %s AND creationDate <= %s
+                WHERE `classID` = %s AND `moduleID` = %s AND creationTimestamp >= %s AND creationTimestamp <= %s
                 ORDER BY `moduleID`, `userID`, `creationTimestamp`
                 ASC;
             '''
@@ -875,7 +877,7 @@ def profGetStudentMessages(student_id=None, class_id=None, module_id=None, date_
             query = '''
                 SELECT `userID`, `chatbotSID`, `keywordsUsed`, `grammarScore`, `source`, `message`, `creationTimestamp`, `isVoiceMessage`, `moduleID`, `classID`
                 FROM `messages`
-                WHERE `classID` = %s AND `moduleID` = %s AND creationDate >= %s
+                WHERE `classID` = %s AND `moduleID` = %s AND creationTimestamp >= %s
                 ORDER BY `moduleID`, `userID`, `creationTimestamp`
                 ASC;
             '''
@@ -892,7 +894,7 @@ def profGetStudentMessages(student_id=None, class_id=None, module_id=None, date_
             query = '''
                 SELECT `userID`, `chatbotSID`, `keywordsUsed`, `grammarScore`, `source`, `message`, `creationTimestamp`, `isVoiceMessage`, `moduleID`, `classID`
                 FROM `messages`
-                WHERE `classID` = %s AND `moduleID` = %s AND creationDate <= %s
+                WHERE `classID` = %s AND `moduleID` = %s AND creationTimestamp <= %s
                 ORDER BY `moduleID`, `userID`, `creationTimestamp`
                 ASC;
             '''
@@ -925,7 +927,7 @@ def profGetStudentMessages(student_id=None, class_id=None, module_id=None, date_
             query = '''
                 SELECT `userID`, `chatbotSID`, `keywordsUsed`, `grammarScore`, `source`, `message`, `creationTimestamp`, `isVoiceMessage`, `moduleID`, `classID`
                 FROM `messages`
-                WHERE `classID` = %s AND `moduleID` = %s AND `userID` = %s AND creationDate >= %s AND creationDate <= %s
+                WHERE `classID` = %s AND `moduleID` = %s AND `userID` = %s AND creationTimestamp >= %s AND creationTimestamp <= %s
                 ORDER BY `creationTimestamp`
                 ASC;
             '''
@@ -942,7 +944,7 @@ def profGetStudentMessages(student_id=None, class_id=None, module_id=None, date_
             query = '''
                 SELECT `userID`, `chatbotSID`, `keywordsUsed`, `grammarScore`, `source`, `message`, `creationTimestamp`, `isVoiceMessage`, `moduleID`, `classID`
                 FROM `messages`
-                WHERE `classID` = %s AND `moduleID` = %s AND `userID` = %s AND creationDate >= %s
+                WHERE `classID` = %s AND `moduleID` = %s AND `userID` = %s AND creationTimestamp >= %s
                 ORDER BY `creationTimestamp`
                 ASC;
             '''
@@ -959,7 +961,7 @@ def profGetStudentMessages(student_id=None, class_id=None, module_id=None, date_
             query = '''
                 SELECT `userID`, `chatbotSID`, `keywordsUsed`, `grammarScore`, `source`, `message`, `creationTimestamp`, `isVoiceMessage`, `moduleID`, `classID`
                 FROM `messages`
-                WHERE `classID` = %s AND `moduleID` = %s AND `userID` = %s AND creationDate <= %s
+                WHERE `classID` = %s AND `moduleID` = %s AND `userID` = %s AND creationTimestamp <= %s
                 ORDER BY `creationTimestamp`
                 ASC;
             '''
@@ -992,7 +994,7 @@ def profGetStudentMessages(student_id=None, class_id=None, module_id=None, date_
             query = '''
                 SELECT `userID`, `chatbotSID`, `keywordsUsed`, `grammarScore`, `source`, `message`, `creationTimestamp`, `isVoiceMessage`, `moduleID`, `classID`
                 FROM `messages`
-                WHERE `classID` = %s AND `userID` = %s AND creationDate >= %s AND creationDate <= %s
+                WHERE `classID` = %s AND `userID` = %s AND creationTimestamp >= %s AND creationTimestamp <= %s
                 ORDER BY `moduleID`, `creationTimestamp`
                 ASC;
             '''
@@ -1009,7 +1011,7 @@ def profGetStudentMessages(student_id=None, class_id=None, module_id=None, date_
             query = '''
                 SELECT `userID`, `chatbotSID`, `keywordsUsed`, `grammarScore`, `source`, `message`, `creationTimestamp`, `isVoiceMessage`, `moduleID`, `classID`
                 FROM `messages`
-                WHERE `classID` = %s AND `userID` = %s AND creationDate >= %s
+                WHERE `classID` = %s AND `userID` = %s AND creationTimestamp >= %s
                 ORDER BY `moduleID`, `creationTimestamp`
                 ASC;
             '''
@@ -1026,7 +1028,7 @@ def profGetStudentMessages(student_id=None, class_id=None, module_id=None, date_
             query = '''
                 SELECT `userID`, `chatbotSID`, `keywordsUsed`, `grammarScore`, `source`, `message`, `creationTimestamp`, `isVoiceMessage`, `moduleID`, `classID`
                 FROM `messages`
-                WHERE `classID` = %s AND `userID` = %s AND creationDate <= %s
+                WHERE `classID` = %s AND `userID` = %s AND creationTimestamp <= %s
                 ORDER BY `moduleID`, `creationTimestamp`
                 ASC;
             '''
@@ -1057,7 +1059,7 @@ def profGetStudentMessages(student_id=None, class_id=None, module_id=None, date_
             query = '''
                 SELECT `userID`, `chatbotSID`, `keywordsUsed`, `grammarScore`, `source`, `message`, `creationTimestamp`, `isVoiceMessage`, `moduleID`, `classID`
                 FROM `messages`
-                WHERE `classID` = %s AND creationDate >= %s AND creationDate <= %s
+                WHERE `classID` = %s AND creationTimestamp >= %s AND creationTimestamp <= %s
                 ORDER BY `moduleID`, `userID`, `creationTimestamp`
                 ASC;
             '''
@@ -1074,7 +1076,7 @@ def profGetStudentMessages(student_id=None, class_id=None, module_id=None, date_
             query = '''
                 SELECT `userID`, `chatbotSID`, `keywordsUsed`, `grammarScore`, `source`, `message`, `creationTimestamp`, `isVoiceMessage`, `moduleID`, `classID`
                 FROM `messages`
-                WHERE `classID` = %s AND creationDate >= %s
+                WHERE `classID` = %s AND creationTimestamp >= %s
                 ORDER BY `moduleID`, `userID`, `creationTimestamp`
                 ASC;
             '''
@@ -1091,7 +1093,7 @@ def profGetStudentMessages(student_id=None, class_id=None, module_id=None, date_
             query = '''
                 SELECT `userID`, `chatbotSID`, `keywordsUsed`, `grammarScore`, `source`, `message`, `creationTimestamp`, `isVoiceMessage`, `moduleID`, `classID`
                 FROM `messages`
-                WHERE `classID` = %s AND creationDate <= %s
+                WHERE `classID` = %s AND creationTimestamp <= %s
                 ORDER BY `moduleID`, `userID`, `creationTimestamp`
                 ASC;
             '''
@@ -1138,39 +1140,25 @@ def getTitoModules(classID: int, status='active'):
 
 # Returns a list of modules assigned to a classID
 def getClassModules(class_id: int, status='any'):
-    if status == 'active':
+    if status in ('active', 'inactive'):
         query = '''
             SELECT `moduleID`
             FROM `tito_module`
-            WHERE `classID` = %s AND 'status' = %s
+            WHERE `classID` = %s AND `status` = %s
             ORDER BY `sequenceID`;
         '''
         res = db.get(query, (class_id, status))
-        if not res:
-            return []
-        return flatten_list(res)
-    elif status == 'inactive':
-        query = '''
-            SELECT `moduleID`
-            FROM `tito_module`
-            WHERE `classID` = %s AND 'status' = %s
-            ORDER BY `sequenceID`;
-        '''
-        res = db.get(query, (class_id, status))
-        if not res:
-            return []
-        return flatten_list(res)
-    else: # 'any'
-        query = '''
-            SELECT `moduleID`
-            FROM `tito_module`
-            WHERE `classID` = %s
-            ORDER BY `sequenceID`;
-        '''
-        res = db.get(query, (class_id,))
-        if not res:
-            return []
-        return flatten_list(res)
+        return [] if not res else flatten_list(res)
+
+    # 'any'
+    query = '''
+        SELECT `moduleID`
+        FROM `tito_module`
+        WHERE `classID` = %s
+        ORDER BY `sequenceID`;
+    '''
+    res = db.get(query, (class_id,))
+    return [] if not res else flatten_list(res)
 
 
 
