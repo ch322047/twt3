@@ -324,11 +324,10 @@ def updateWordsUsed(term_count_dict: dict, user_id: int, module_id: int):
 
 def updateMessageKeytermCount(count: int, messageID: int, chatbotSID: int):
     query = '''
-        UPDATE `messages` 
-        SET `keyWordsUsed` = `keyWordsUsed` + %s
+        UPDATE `messages`
+        SET `keywordsUsed` = `keywordsUsed` + %s
         WHERE `messageID` = %s;
     '''
-
     db.post(query, (count, messageID))
 
 # TODO: Improve this? return # words mastered and totalwords in that module
